@@ -2,15 +2,18 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
+
 const cart = (props) => {
-  const { cart }= props;
+  const { cart , clearCart }= props;
 
   let total = 0;
   let shipping = 0;
   let tax = 0;
   let grandTotal = 0;
+  let quantity = 0;
   for (const product of cart){
-    total = total + product.price;
+    quantity = quantity+ product.quantity;
+    total = total + product.price * product.quantity;
     shipping = shipping + product.shipping;
     tax = (total*0.05).toFixed(0) ;
     grandTotal = total + shipping + parseFloat(tax);
@@ -28,7 +31,7 @@ const cart = (props) => {
           <br />
           
           <div className='text-start'>
-            <h5>Selected Items : {cart.length} </h5>
+            <h5>Selected Items : {quantity} </h5>
             
             <h5>Total Price : ${total} </h5>
             
@@ -40,9 +43,9 @@ const cart = (props) => {
           </div>
           <br />
           <div className='d-flex flex-column mb-3'>
-            <button className='clear-btn'>Clear Cart <span> <i class="fa fa-trash-o"></i> </span> </button>
+            <button onClick={clearCart} className='clear-btn'  ><a className='text-decoration-none text-light' href="">Clear Cart</a> <span> <i className="fa fa-trash-o text-light"></i> </span> </button>
             <br />
-            <button className="review-btn">Review cart <span> <FontAwesomeIcon icon={faArrowRightToBracket} /></span> </button>
+            <button className="review-btn"> <a className='text-decoration-none text-light' href='order'>Review cart</a> <span> <FontAwesomeIcon icon={faArrowRightToBracket} /></span> </button>
           </div>
     </div>
   );

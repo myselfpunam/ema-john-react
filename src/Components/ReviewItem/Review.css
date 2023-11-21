@@ -1,0 +1,49 @@
+.container{
+  display: flex;
+  
+  gap :20px;
+  padding: 20px;
+  border: 1px solid orange;
+  margin: 10px;
+  width: 771px;
+  margin-left: 500px;
+  border-radius: 20px
+}
+.info-container{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+
+.img-container img{
+  width: 150px;
+  
+}
+.fa{
+  color: rgb(228, 23, 40);
+  width: 20px;
+  height: 20px;
+}
+.icon{
+  
+  border: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #95A0A7;
+  margin-top: 50px;
+  margin-left: 100px;
+  
+}
+@media (max-width: 500px) {
+  .container{
+    margin-left: 10px;
+  }
+  
+  }
+  @media only screen and (max-width: 1000px) and (min-width: 501px){
+    .container{
+      margin-left: 10px;
+     
+    }
+  }

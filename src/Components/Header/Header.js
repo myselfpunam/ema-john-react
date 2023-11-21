@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../images/Logo.svg'
 import './Header.css'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -13,19 +14,17 @@ const Header = () => {
                 <div class="collapse navbar-collapse " id="navbarNav">
                     <ul class="navbar-nav ms-auto p">
                         <li class="nav-item">
-                            <a class="nav-link mx-3" aria-current="page" href="#">Home</a>
+                            <Link class="nav-link mx-3" aria-current="page" to="home">Home</Link>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mx-3" href="#">Features</a>
+                          <Link class="nav-link mx-3" to="features">Features</Link>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link mx-3" href="#">Shoes</a>
+                          <Link class="nav-link mx-3" to="shoes">Shoes</Link>
                         </li>
+                       
                         <li class="nav-item">
-                          <a class="nav-link mx-3" href="#">Bags</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link mx-3" href="#">Others</a>
+                          <Link class="nav-link mx-3" to="order">Orders</Link>
                         </li>
                     </ul>
                 </div>

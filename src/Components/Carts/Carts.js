@@ -3,24 +3,52 @@ import React, { useEffect, useState } from 'react';
 import './Carts.css'
 import Cart from '../Cart/Cart';
 import Order from '../Order/Order';
-import { addToDb } from '../../utilities/StoreData';
+import { addToDb, deleteShoppingCart, getStoredCart } from '../../utilities/StoreData';
+import { useLoaderData } from 'react-router-dom';
 
 
 
 const Carts = () => {
-  const [products , setProducts] = useState([]);
+  const products =useLoaderData()
   const [cart ,setCart] = useState([]);
+  const clearCart = () => {
+    setCart([]);
+    deleteShoppingCart()
+  }
   
-  useEffect( () => {
-    fetch('products.json')
-    .then(res => res.json())
-    .then(data=> setProducts(data))
-  },[]);
-    const addToCartHandler = (product) =>{
-      console.log(product)
-      const newCart = [...cart, product];
+
+  useEffect(()=>{
+    const storedCart = getStoredCart();
+    const savedCArt=[];
+    for(const id in storedCart){
+      const addedProduct = products.find(product=>product.id===id)
+      if(addedProduct){
+        const quantity = storedCart[id];
+        addedProduct.quantity =quantity;
+        savedCArt.push(addedProduct);
+      }
+      
+
+    }
+    setCart(savedCArt)
+  },[products])
+
+    const addToCartHandler = (selectedproduct) =>{
+      let newCart = [];
+     const exists = cart.find(product => product.id === selectedproduct.id);
+     if(!exists){
+      selectedproduct.quantity=1;
+      newCart = [...cart, selectedproduct];
+     }
+     else{
+      const rest =cart.filter(product => product.id !== selectedproduct.id);
+      exists.quantity= exists.quantity +1 ;
+      newCart = [...rest , exists];
+     }
+     
       setCart(newCart);
-      addToDb(product.id)
+      addToDb(selectedproduct.id);
+
       
     }
   return (
@@ -29,8 +57,9 @@ const Carts = () => {
         {
           products.map(product=> <Cart 
             key={product.id} 
-            product={product}
+            product= {product}
             addToCartHandler={addToCartHandler}
+            
             
             ></Cart> )
         }
@@ -41,7 +70,7 @@ const Carts = () => {
         <br />
         <br />
           <div className='summary'>
-            <Order cart = {cart} ></Order>
+            <Order clearCart={clearCart} cart = {cart} ></Order>
           </div>
           
       </div>

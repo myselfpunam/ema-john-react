@@ -4,3 +4,6 @@
 .card-footer:hover{
   background-color: orange;
 }
+.cart-btn{
+  cursor: pointer;
+}
